@@ -7,7 +7,7 @@ public class UserTestRunner {
     @Test (priority = 1)
     public void doLogin() throws IOException, ConfigurationException {
         UserController userController = new UserController();
-        userController.doLogin();
+        userController.doLogin("admin@roadtocareer.net", "1234");
     }
 
     @Test(priority = 2)

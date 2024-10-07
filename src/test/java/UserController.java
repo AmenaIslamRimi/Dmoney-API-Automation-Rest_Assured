@@ -16,12 +16,12 @@ public class UserController extends Setup {
         initConfigFile();
     }
 
-    public void doLogin() throws ConfigurationException {
+    public void doLogin(String email, String password) throws ConfigurationException {
         RestAssured.baseURI = prop.getProperty("baseUrl");
-        Response res = given().contentType("application/json").body("{\n" +
-                "    \"email\":\"admin@roadtocareer.net\",\n" +
-                "    \"password\":\"1234\"\n" +
-                "}").post("/user/login");
+        UserModel userModel = new UserModel();
+        userModel.setEmail(email);
+        userModel.setPassword(password);
+        Response res = given().contentType("application/json").body(userModel).post("/user/login");
         System.out.println(res.asString());
         JsonPath jsonPath = res.jsonPath();
         String token = jsonPath.get("token");

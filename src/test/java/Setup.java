@@ -12,6 +12,6 @@ public class Setup {
         prop = new Properties();
         fs = new FileInputStream("./src/test/resources/config.properties");
         prop.load(fs);
-        System.out.println(prop.get("token"));
+        //System.out.println(prop.get("token"));
     }
 }
