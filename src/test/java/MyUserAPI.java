@@ -21,11 +21,11 @@ public class MyUserAPI {
 
     @Test
     public void doLogin() throws ConfigurationException {
-        RestAssured.baseURI = "https://master.d1zgfbpp372908.amplifyapp.com";
+        RestAssured.baseURI = "https://dmoney.roadtocareer.net";
         Response res = given().contentType("application/json").body("{\n" +
                 "    \"email\":\"admin@roadtocareer.net\",\n" +
                 "    \"password\":\"1234\"\n" +
-                "}").post("/login");
+                "}").post("/user/login");
         System.out.println(res.asString());
         JsonPath jsonPath = res.jsonPath();
         String token = jsonPath.get("token");
@@ -34,9 +34,9 @@ public class MyUserAPI {
     }
 
     @Test
-    public void searchUser(){
-        RestAssured.baseURI = "https://master.d1zgfbpp372908.amplifyapp.com";
-        Response res = given().contentType("application/json").header("Authorization", prop.get("token")).when().get("/user/search/id/6535");
+    public void searchUser()  {
+        RestAssured.baseURI = "https://dmoney.roadtocareer.net";
+        Response res = given().contentType("application/json").header("Authorization", prop.get("token")).when().get("/user/search/id/24724");
         System.out.println(res.asString());
 
     }
@@ -46,7 +46,7 @@ public class MyUserAPI {
         prop = new Properties();
         fs = new FileInputStream("./src/test/resources/config.properties");
         prop.load(fs);
-        System.out.println(prop.get("token"));
+        //System.out.println(prop.get("token"));
     }
 
     public void setENVVar(String key, String value) throws ConfigurationException {
