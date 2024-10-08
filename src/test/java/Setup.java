@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Setup {
-    Properties prop;
+     Properties prop;
     FileInputStream fs;
     @BeforeTest
     public void initConfigFile() throws IOException {

@@ -5,4 +5,9 @@
             <class name="UserTestRunner"/>
         </classes>
     </test>
+    <test name="transaction">
+        <classes>
+            <class name="TransactionTestRunner"/>
+        </classes>
+    </test>
 </suite>

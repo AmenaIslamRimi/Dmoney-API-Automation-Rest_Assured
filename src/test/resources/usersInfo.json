@@ -1,0 +1,26 @@
+[
+  {
+    "password": "P@ssword123",
+    "role": "Agent",
+    "name": "Taunya Waelchi",
+    "nid": "837889669",
+    "phone_number": "01959750919",
+    "email": "scotty.gerlach@yahoo.com"
+  },
+  {
+    "password": "P@ssword123",
+    "role": "Customer",
+    "name": "Laureen Schinner",
+    "nid": "540945901",
+    "phone_number": "01543722415",
+    "email": "mallie.jacobson@gmail.com"
+  },
+  {
+    "password": "P@ssword123",
+    "role": "Customer",
+    "name": "John Sporer V",
+    "nid": "421640309",
+    "phone_number": "01824926085",
+    "email": "jason.rodriguez@hotmail.com"
+  }
+]
