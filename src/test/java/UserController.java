@@ -22,18 +22,30 @@ public class UserController extends Setup {
         userModel.setEmail(email);
         userModel.setPassword(password);
         Response res = given().contentType("application/json").body(userModel).post("/user/login");
-        System.out.println(res.asString());
+        //System.out.println(res.asString());
         JsonPath jsonPath = res.jsonPath();
         String token = jsonPath.get("token");
-        System.out.println(token);
+        //System.out.println(token);
         Utils.setENVVar("token", token);
     }
 
-    public void searchUser() {
+    public JsonPath searchUser(String userId) {
         RestAssured.baseURI = prop.getProperty("baseUrl");
-        Response res = given().contentType("application/json").header("Authorization", "Bearer " + prop.get("token")).when().get("/user/search/id/24724");
-        System.out.println(res.asString());
+        Response res = given().contentType("application/json").header("Authorization", "Bearer " + prop.get("token"))
+                .when().get("/user/search/id/" + userId);
+        //System.out.println(res.asString());
+        return res.jsonPath();
 
+    }
+    public JsonPath createUser(UserModel userModel) throws ConfigurationException {
+        RestAssured.baseURI = prop.getProperty("baseUrl");
+        Response res = given().contentType("application/json")
+                        .header("Authorization", "Bearer " + prop.get("token"))
+                        .header("X-AUTH-SECRET-KEY", prop.getProperty("partnerKey"))
+                        .body(userModel)
+                        .when().post("/user/create");
+
+        return res.jsonPath();
     }
 }
 

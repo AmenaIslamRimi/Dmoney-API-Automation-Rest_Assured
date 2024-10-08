@@ -8,5 +8,23 @@ public class Utils {
             config.save();
 
         }
+    public static int generateRandomId(int min, int max){
+        double random= Math.random()*(max-min)+min;
+        int randId= (int) random;
+        return randId;
+
+    }
+
+    public static String selectRandomNumberPrefix() {
+            String [] prefix = {"015","016","017","018","019"};
+            int randomIndex = (int) (Math.random() * prefix.length);
+            String randomPrefix = prefix[randomIndex];
+            return randomPrefix;
+    }
+
+//    public static void main(String[] args) {
+//        String numPrefix = selectRandomNumberPrefix(" ");
+//        System.out.println(numPrefix);
+//    }
     }
 
