@@ -45,3 +45,4 @@ bin/
 .gradle
 build
 gradle
+allure-report
