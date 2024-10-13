@@ -34,12 +34,12 @@ public class UserTestRunner extends Setup {
         Utils.saveUsers(userModel);
     }
     //@Test(priority = 3, enabled = true, description = "Search user by ID")
-    public void searchUser() throws IOException {
-        UserController userController = new UserController();
-        JsonPath jsonPath = userController.searchUser(prop.getProperty("userId"));
-        String searchMsg = jsonPath.get("message");
-        Assert.assertTrue(searchMsg.contains("User found"));
-    }
+//    public void searchUser() throws IOException {
+//        UserController userController = new UserController();
+//        JsonPath jsonPath = userController.searchUser(prop.getProperty("userId"));
+//        String searchMsg = jsonPath.get("message");
+//        Assert.assertTrue(searchMsg.contains("User found"));
+//    }
 
     @Test(priority = 3, enabled = true, description = "System deposit to agent")
     public void depositeAgent() throws IOException, ConfigurationException, ParseException {

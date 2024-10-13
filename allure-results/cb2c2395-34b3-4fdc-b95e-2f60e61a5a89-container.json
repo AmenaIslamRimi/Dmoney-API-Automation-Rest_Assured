@@ -1,1 +1,0 @@
-{"uuid":"cb2c2395-34b3-4fdc-b95e-2f60e61a5a89","name":"API-Test-RestAssured","children":["c2b619f2-c4b8-49e2-9ec7-984508915d9d"],"befores":[{"name":"initConfigFile","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1728807830084,"stop":1728807830095}],"afters":[],"start":1728807829795,"stop":1728807835797}
