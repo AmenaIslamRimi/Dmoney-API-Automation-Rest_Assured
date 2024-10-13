@@ -36,10 +36,13 @@ public class Utils {
         String fileLocation = "./src/test/resources/usersInfo.json";
         JSONParser parser = new JSONParser();
         JSONArray userArray = (JSONArray) parser.parse(new FileReader(fileLocation));
+        UserController userController = new UserController();
+        JsonPath jsonPath = userController.createUser(userModel);
+        String userId = jsonPath.get("user.id");
 
         JSONObject userObj = new JSONObject();
 
-        //userObj.put("id", userId);
+        userObj.put("id", userId);
         userObj.put("name", userModel.getName());
         userObj.put("email", userModel.getEmail());
         userObj.put("password", userModel.getPassword());

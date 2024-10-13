@@ -42,13 +42,13 @@ public class UserController extends Setup {
     public JsonPath createUser(UserModel userModel) throws ConfigurationException {
         RestAssured.baseURI = prop.getProperty("baseUrl");
         Response res = given().contentType("application/json")
-                .header("Authorization", "Bearer " + prop.get("token"))
+                .header("Authorization", "Bearer " + prop.getProperty("token"))
                 .header("X-AUTH-SECRET-KEY", prop.getProperty("partnerKey"))
                 .body(userModel)
                 .when().post("/user/create");
 
 //        JsonPath jsonResponse = res.jsonPath();
-//        // Extract the userId from the response (assuming the response has a field "userId")
+////        // Extract the userId from the response (assuming the response has a field "userId")
 //        int userId = jsonResponse.getInt("user.id");
         return res.jsonPath();
 

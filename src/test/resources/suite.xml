@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<suite name="dmoney rest assured autmation">
-    <test name="user registration">
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="dmoney rest assured automation">
+    <test name="user reg">
         <classes>
-            <class name="UserTestRunner"/>
+            <class name="UserTestRunner"></class>
         </classes>
     </test>
-    <test name="transaction">
+    <test name="user transaction">
         <classes>
-            <class name="TransactionTestRunner"/>
+            <class name="TransactionTestRunner"></class>
         </classes>
     </test>
 </suite>

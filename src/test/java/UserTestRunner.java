@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 public class UserTestRunner extends Setup {
-    @Test (priority = 1, enabled = true, description = "admin log in")
+    @Test(priority = 1, enabled = true, description = "admin log in")
     public void doLogin() throws IOException, ConfigurationException {
         UserController userController = new UserController();
         userController.doLogin("admin@roadtocareer.net", "1234");
@@ -27,13 +27,13 @@ public class UserTestRunner extends Setup {
         String phoneNumber= Utils.selectRandomNumberPrefix() +Utils.generateRandomId(10000000,99999999);
         userModel.setPhone_number(phoneNumber);
         userModel.setNid(String.valueOf(Utils.generateRandomId(100000000,999999999)));
-        userModel.setRole("Customer");
+        userModel.setRole("Agent");
         JsonPath jsonPath = userController.createUser(userModel);
-        int userId = jsonPath.get("user.id");
-        Utils.setENVVar("userId", String.valueOf(userId));
+        //int userId = jsonPath.get("user.id");
+        //Utils.setENVVar("userId", String.valueOf(userId));
         Utils.saveUsers(userModel);
     }
-    @Test(priority = 3, enabled = false, description = "Search user by ID")
+    //@Test(priority = 3, enabled = true, description = "Search user by ID")
     public void searchUser() throws IOException {
         UserController userController = new UserController();
         JsonPath jsonPath = userController.searchUser(prop.getProperty("userId"));
@@ -41,11 +41,12 @@ public class UserTestRunner extends Setup {
         Assert.assertTrue(searchMsg.contains("User found"));
     }
 
-    @Test(priority = 4, enabled = true, description = "System deposit to agent")
+    @Test(priority = 3, enabled = true, description = "System deposit to agent")
     public void depositeAgent() throws IOException, ConfigurationException, ParseException {
         UserController userController = new UserController();
         UserModel userModel = new UserModel();
         JSONArray userArray = Utils.readJSONData();
+
         String agentPhoneNumber = null;
         for (int i = 0; i < userArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) userArray.get(i);

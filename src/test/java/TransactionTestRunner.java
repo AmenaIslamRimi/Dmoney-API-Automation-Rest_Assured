@@ -11,9 +11,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 public class TransactionTestRunner extends Setup {
-//    public TransactionController() throws IOException {
-//        initConfigFile();
-//    }
 
     @Test(priority = 1, enabled = true, description = "Agent log in")
     public void doLoginNewUser() throws ConfigurationException, IOException, ParseException {
@@ -40,6 +37,7 @@ public class TransactionTestRunner extends Setup {
         JSONArray userArray = Utils.readJSONData();
         String agentPhoneNumber = null;
         String customerPhoneNumber = null;
+        int customerCount = 0;
 
         for (int i = 0; i < userArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) userArray.get(i);
@@ -50,10 +48,14 @@ public class TransactionTestRunner extends Setup {
                 agentPhoneNumber = (String) jsonObject.get("phone_number");
             }
 
-            // Check if the customer's name matches
-            String customerName = (String) jsonObject.get("name"); // Assuming the JSON has a key 'name'
-            if ("Laureen Schinner".equals(customerName)) {
-                customerPhoneNumber = (String) jsonObject.get("phone_number");
+            if ("Customer".equalsIgnoreCase(role)) {
+                customerCount++;
+
+                // Select the first customer as the sender
+                if (customerCount == 1) {
+                    customerPhoneNumber = (String) jsonObject.get("phone_number");
+                    break;
+                }
             }
         }
 
@@ -67,22 +69,28 @@ public class TransactionTestRunner extends Setup {
         String message = jsonPath.get("message");
         Assert.assertTrue(message.contains("Deposit successful"));
     }
-        @Test(priority = 3, enabled = true, description = "Customer log in")
-        public void doLoginWithNewUser() throws ConfigurationException, IOException, ParseException {
+    @Test(priority = 3, enabled = true, description = "Customer log in")
+    public void doLoginWithNewUser() throws ConfigurationException, IOException, ParseException {
             RestAssured.baseURI = prop.getProperty("baseUrl");
             UserController userController = new UserController();
             UserModel userModel = new UserModel();
             JSONArray userArray = Utils.readJSONData();
             String email = null;
             String password = null;
+        int customerCount = 0;
             for (int i = 0; i < userArray.size(); i++) {
                 JSONObject jsonObject = (JSONObject) userArray.get(i);
 
-                String customerName = (String) jsonObject.get("name"); // Assuming the JSON has a key 'name'
-                if ("Laureen Schinner".equals(customerName)) {
-                    email = (String) jsonObject.get("email");
-                    password = (String) jsonObject.get("password");
-                    break;
+                String role = (String) jsonObject.get("role"); // Assuming the JSON has a key 'name'
+                if ("Customer".equalsIgnoreCase(role)) {
+                    customerCount++;
+
+                    // Select the first customer as the sender
+                    if (customerCount == 1) {
+                        email = (String) jsonObject.get("email");
+                        password = (String) jsonObject.get("password");
+                        break;
+                    }
                 }
             }
 
@@ -98,6 +106,7 @@ public class TransactionTestRunner extends Setup {
         JSONArray userArray = Utils.readJSONData();
         String agentPhoneNumber = null;
         String customerPhoneNumber = null;
+        int customerCount = 0;
         for (int i = 0; i < userArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) userArray.get(i);
 
@@ -107,8 +116,16 @@ public class TransactionTestRunner extends Setup {
 
             if ("Agent".equalsIgnoreCase(role)) {
                 agentPhoneNumber = (String) jsonObject.get("phone_number");
-            } else if ("Laureen Schinner".equals(customerName)) {
-                customerPhoneNumber = (String) jsonObject.get("phone_number");
+            }
+
+            if ("Customer".equalsIgnoreCase(role)) {
+                customerCount++;
+
+                // Select the first customer as the sender
+                if (customerCount == 1) {
+                    customerPhoneNumber = (String) jsonObject.get("phone_number");
+                    break;
+                }
             }
         }
 
@@ -130,15 +147,26 @@ public class TransactionTestRunner extends Setup {
         JSONArray userArray = Utils.readJSONData();
         String fromCustomer = null;
         String toCustomer = null;
+        int customerCount = 0;
         for (int i = 0; i < userArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) userArray.get(i);
 
 
-            String customerName = (String) jsonObject.get("name");
-            if ("Laureen Schinner".equals(customerName)) {
-                fromCustomer = (String) jsonObject.get("phone_number");
-            } else if ("John Sporer V".equals(customerName)) {
-                toCustomer = (String) jsonObject.get("phone_number");
+            String role = (String) jsonObject.get("role");
+
+            if ("Customer".equalsIgnoreCase(role)) {
+                customerCount++;
+
+                // Select the first customer as the sender
+                if (customerCount == 1) {
+                    fromCustomer = (String) jsonObject.get("phone_number");
+                }
+
+                // Select the second customer as the receiver
+                if (customerCount == 2) {
+                    toCustomer = (String) jsonObject.get("phone_number");
+                    break;  // Exit the loop after finding the second customer
+                }
             }
         }
 
@@ -159,15 +187,21 @@ public class TransactionTestRunner extends Setup {
         UserModel userModel = new UserModel();
         JSONArray userArray = Utils.readJSONData();
         String customer = null;
+        int customerCount = 0;
         String merchant = "01686606905";
         for (int i = 0; i < userArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) userArray.get(i);
 
 
-            String customerName = (String) jsonObject.get("name");
-            if ("Laureen Schinner".equals(customerName)) {
-                customer = (String) jsonObject.get("phone_number");
-                break;
+            String role = (String) jsonObject.get("role");
+            if ("Customer".equalsIgnoreCase(role)) {
+                customerCount++;
+
+                // Select the first customer as the sender
+                if (customerCount == 1) {
+                    customer = (String) jsonObject.get("phone_number");
+                    break;
+                }
             }
         }
 
@@ -189,14 +223,20 @@ public class TransactionTestRunner extends Setup {
         JSONArray userArray = Utils.readJSONData();
         String email = null;
         String password = null;
+        int customerCount = 0;
         for (int i = 0; i < userArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) userArray.get(i);
 
-            String customerName = (String) jsonObject.get("name"); // Assuming the JSON has a key 'name'
-            if ("John Sporer V".equals(customerName)) {
-                email = (String) jsonObject.get("email");
-                password = (String) jsonObject.get("password");
-                break;
+            String role = (String) jsonObject.get("role"); // Assuming the JSON has a key 'name'
+            if ("Customer".equalsIgnoreCase(role)) {
+                customerCount++;
+
+                // Select the first customer as the sender
+                if (customerCount == 2) {
+                    email = (String) jsonObject.get("email");
+                    password = (String) jsonObject.get("password");
+                    break;
+                }
             }
         }
 
@@ -207,12 +247,18 @@ public class TransactionTestRunner extends Setup {
         UserController userController = new UserController();
         JSONArray userArray = Utils.readJSONData();
         String phoneNumber=null;
+        int customerCount = 0;
         for (int i = 0; i < userArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) userArray.get(i);
-            String customerName = (String) jsonObject.get("name");
-            if ("John Sporer V".equals(customerName)) {
-                phoneNumber = (String) jsonObject.get("phone_number");
-                break;
+            String role = (String) jsonObject.get("role");
+            if ("Customer".equalsIgnoreCase(role)) {
+                customerCount++;
+
+                // Select the first customer as the sender
+                if (customerCount == 2) {
+                    phoneNumber = (String) jsonObject.get("phone_number");
+                    break;
+                }
             }
         }
 
