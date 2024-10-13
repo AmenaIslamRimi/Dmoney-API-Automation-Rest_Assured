@@ -23,7 +23,7 @@ Before running this project, make sure you have the following installed:
 # How to Run
 - Clone the Repository
   - ```git clone https://github.com/AmenaIslamRimi/Dmoney-API-Automation-Rest_Assured.git```
-  - cd dmoney-api-automation
+  - cd Dmoney-API-Automation-Rest_Assured
   - Run complete suite in terminal
     - gradle clean test
   - Generate the Allure report in terminal
