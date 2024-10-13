@@ -46,3 +46,4 @@ bin/
 build
 gradle
 allure-report
+allure-results
